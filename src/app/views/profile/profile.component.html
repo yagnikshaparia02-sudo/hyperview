@@ -1,0 +1,141 @@
+<!-- Change Password -- Start -->
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      {{ "CHANGE_PASSWORD" | translate }}
+    </h3>
+  </div>
+  <form
+    novalidate
+    #changePassFrm="ngForm"
+    (ngSubmit)="changePassword(changePassFrm)"
+  >
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-error-msg pull-right">
+            {{ "SIGNED_FIELD_IS_REQUIRED" | translate }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "CURRENT_PASSWORD" | translate }}</mat-label>
+              <input
+                [type]="showCurrPass ? 'text' : 'password'"
+                class="form-control"
+                required
+                [(ngModel)]="model.currentPassword"
+                #current_pass="ngModel"
+                name="current_pass"
+                placeholder="{{ 'CURRENT_PASSWORD' | translate }}"
+                matInput
+              />
+              <button
+                type="button"
+                class="input-with-icon"
+                mat-icon-button
+                matSuffix
+                (click)="showCurrPass = !showCurrPass"
+              >
+                <mat-icon>{{
+                  showCurrPass ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+              <mat-error *ngIf="submitted && current_pass.errors?.required">{{
+                "PLEASE_ENTER_CURRENT_PASSWORD" | translate
+              }}</mat-error>
+              <mat-error *ngIf="submitted && current_pass.errors?.pattern">{{
+                "PLEASE_ENTER_VALID_CURRENT_PASSWORD" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "NEW_PASSWORD" | translate }}</mat-label>
+              <input
+                matInput
+                [type]="showPass ? 'text' : 'password'"
+                name="password"
+                [pattern]="CommonRegx.PasswordRegx"
+                class="form-control"
+                placeholder="{{ 'NEW_PASSWORD' | translate }}"
+                [(ngModel)]="model.newPassword"
+                required
+                #password="ngModel"
+              />
+              <button
+                type="button"
+                class="input-with-icon"
+                mat-icon-button
+                matSuffix
+                (click)="showPass = !showPass"
+              >
+                <mat-icon>{{
+                  showPass ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+              <mat-error *ngIf="password.errors?.required && submitted">{{
+                "PLEASE_ENTER_PASSWORD" | translate
+              }}</mat-error>
+              <mat-error *ngIf="password.errors?.pattern && submitted">{{
+                "PLEASE_ENTER_VALID_PASSWORD" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "CONFIRM_PASSWORD" | translate }}</mat-label>
+              <input
+                [type]="showConfPass ? 'text' : 'password'"
+                class="form-control"
+                required
+                [(ngModel)]="model.confirmPassword"
+                #confirm_pass="ngModel"
+                name="confirm_pass"
+                [pattern]="model.newPassword"
+                placeholder="{{ 'CONFIRM_PASSWORD' | translate }}"
+                matInput
+              />
+              <button
+                type="button"
+                class="input-with-icon"
+                mat-icon-button
+                matSuffix
+                (click)="showConfPass = !showConfPass"
+              >
+                <mat-icon>{{
+                  showConfPass ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+              <mat-error *ngIf="submitted && confirm_pass.errors?.required">{{
+                "PLEASE_ENTER_CONFIRM_PASS" | translate
+              }}</mat-error>
+              <mat-error *ngIf="submitted && confirm_pass.errors?.pattern">{{
+                "PLEASE_ENTER_VALLID_CONFIRM_PASS" | translate
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary btn-sm mx-2" type="submit">
+        <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+        {{ "CHANGE_PASSWORD" | translate }}</button
+      >&nbsp;
+      <a class="btn btn-secondary btn-sm mx-2" [routerLink]="['/dashboard']"
+        ><i class="fa fa-times"></i> {{ "CANCEL" | translate }}</a
+      >
+    </div>
+  </form>
+</div>
+<!-- Change Password -- End -->
+<app-loader></app-loader>

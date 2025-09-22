@@ -1,0 +1,179 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">PO Export</h3>
+  </div>
+  <form
+    autocomplete="off"
+    (ngSubmit)="onSubmitForm(userFrm)"
+    novalidate
+    #userFrm="ngForm"
+    InvalidFormScrollNGFormDirective
+  >
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>PO Number</mat-label>
+            <input
+              matInput
+              [(ngModel)]="filter.ponumber"
+              type="text"
+              name="ponumber"
+              placeholder="Enter PO Number"
+              #ponumber="ngModel"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="ponumber.errors?.required && submitted">
+            {{ "Please enter PO Number" }}</mat-error
+          >
+        </div>
+        <div class="col-md-3">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "Po Status" }}</mat-label>
+            <mat-select
+              name="postatus"
+              required
+              [(ngModel)]="filter.postatus"
+              #postatus="ngModel"
+            >
+              <mat-option
+                *ngFor="let postatus of postatuslist"
+                [value]="postatus"
+                >{{ postatus }}</mat-option
+              >
+            </mat-select>
+            <mat-error *ngIf="postatus.errors?.required && submitted"
+              >{{ "Please Select Status" | translate }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field
+            appearance="outline"
+            class="input-box"
+            (click)="datepicker.open()"
+          >
+            <mat-label>From Date</mat-label>
+            <input
+              required
+              [(ngModel)]="filter.fromDate"
+              name="fromDate"
+              #fromDate="ngModel"
+              matInput
+              [matDatepicker]="datepicker"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="datepicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #datepicker> </mat-datepicker>
+            <mat-error *ngIf="fromDate.errors?.required && submitted">{{
+              "Please enter from date"
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field
+            appearance="outline"
+            class="input-box"
+            (click)="datepicker2.open()"
+          >
+            <mat-label>To Date</mat-label>
+            <input
+              required
+              [(ngModel)]="filter.toDate"
+              name="toDate"
+              #toDate="ngModel"
+              matInput
+              [matDatepicker]="datepicker2"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="datepicker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #datepicker2> </mat-datepicker>
+            <mat-error *ngIf="toDate.errors?.required && submitted">{{
+              "Please enter to date"
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-center">
+      <button type="submit" class="btn btn-primary btn-sm mx-2">
+        <i class="fa fa-save"></i>{{ "Load" }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-sm btn-warning"
+        (click)="resetFilter()"
+      >
+        <i class="fa fa-refresh"></i> {{ "RESET" | translate }}
+      </button>
+    </div>
+    <div *ngIf="dataSource.length > 0">
+      <div class="table-spinner-container table-responsive">
+        <app-table-loader *ngIf="loading"></app-table-loader>
+        <mat-table
+          name="tblData"
+          id="tblData"
+          recycleRows
+          [dataSource]="dataSource"
+          matSort
+          matSortDirection="asc"
+          class="mat-elevation-z8"
+        >
+          <ng-container matColumnDef="Sr">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ "Sr" }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.Sr }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="PONumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ "PO Number" }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.PONumber }}</mat-cell
+            >
+          </ng-container>
+          <ng-container matColumnDef="POStatus">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ "Status" }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.POStatus }}</mat-cell
+            >
+          </ng-container>
+          <ng-container matColumnDef="Action">
+            <mat-header-cell class="min-table-cell-width" *matHeaderCellDef>
+              {{ "Action" }}
+            </mat-header-cell>
+            <mat-cell
+              *matCellDef="let element"
+              class="table-database-group-action-width"
+            >
+              <a (click)="export(element.poId, element.PONumber)">
+                <i class="fa fa-file-excel-o" title="export to csv"></i>
+              </a>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+        <div class="text-center text-danger" *ngIf="dataSource.length <= 0">
+          {{ "No Records found." }}
+        </div>
+      </div>
+      <mat-paginator
+        #paginator
+        style-paginator
+        [length]="totalRecords"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        (page)="onChangePage($event)"
+      >
+      </mat-paginator>
+    </div>
+  </form>
+</div>
+<app-loader></app-loader>

@@ -1,0 +1,142 @@
+<!-- Main -->
+<div class="card">
+  <!-- Header -->
+  <div class="card-header">
+    <h3 class="card-title">Bulk PO Creation</h3>
+  </div>
+
+  <!-- Import Template Button -->
+  <div class="card-body">
+    <a
+      target="_self"
+      class="btn btn-sm btn-primary"
+      href="../../../assets/ImportTemplates/ImportPurchaseOrdersTemplate.xlsx"
+      download="ImportPurchaseOrdersTemplate.xlsx"
+    >
+      Import Template</a
+    >
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <!-- Row 1 - Choose and Import File -->
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header row">
+            <!-- Import CSV for Columns Form -->
+            <form
+              autocomplete="off"
+              (ngSubmit)="onSubmitFileForGetColumns(importCsvForColumnsForm)"
+              novalidate
+              #importCsvForColumnsForm="ngForm"
+              InvalidFormScrollNGFormDirective
+            >
+              <input
+                type="file"
+                #fileInput
+                name="fileInput"
+                required
+                (change)="fileChange($event)"
+                placeholder="Upload file"
+                accept=".csv, .xlsx"
+              />
+
+              <mat-error *ngIf="showError">
+                {{ "PLEASE_UPLOAD_FILE" | translate }}
+              </mat-error>
+
+              <button type="submit" class="btn btn-primary btn-sm mx-2">
+                <i class="fa fa-save"></i>{{ "IMPORT" | translate }}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 - Submit File and Mappings -->
+
+      <div class="col-md-12 pt-3" *ngIf="requiredColumnsList.length > 0">
+        <div class="card">
+          <div class="card-header row">
+            <!-- Import CSV and mappings for bulk purchase orders creation -->
+            <form
+              autocomplete="off"
+              (ngSubmit)="
+                onSubmitFileWithMappingsForOrderCreation(
+                  bulkPurchaseOrdersCreationForm
+                )
+              "
+              novalidate
+              #bulkPurchaseOrdersCreationForm="ngForm"
+              InvalidFormScrollNGFormDirective
+            >
+              <!-- Table -->
+              <mat-table
+                [dataSource]="requiredColumnsList"
+                class="mat-elevation-z8"
+              >
+                <!-- Required columns list -->
+                <ng-container matColumnDef="requiredColumn">
+                  <mat-header-cell *matHeaderCellDef>
+                    Purchase Order Column
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let col"> {{ col }} </mat-cell>
+                </ng-container>
+
+                <!-- CSV columns list -->
+                <ng-container matColumnDef="csvColumn">
+                  <mat-header-cell *matHeaderCellDef>
+                    CSV File Column
+                  </mat-header-cell>
+
+                  <mat-cell *matCellDef="let col; let i = index">
+                    <mat-form-field appearance="outline" class="input-box">
+                      <mat-select
+                        required
+                        [(ngModel)]="columnMappings[col]"
+                        #columnSelect="ngModel"
+                        name="mapping-{{ i }}"
+                      >
+                        <mat-option
+                          *ngFor="let option of csvColumnsList"
+                          [value]="option.position"
+                        >
+                          {{ option.columnName }}
+                        </mat-option>
+                      </mat-select>
+
+                      <mat-error *ngIf="submitted && columnMappings[i] == null"
+                        >{{ "PLEASE_SELECT_COLUMN" | translate }}
+                      </mat-error>
+                    </mat-form-field>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row
+                  *matHeaderRowDef="displayedColumns"
+                ></mat-header-row>
+                <mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+              </mat-table>
+
+              <!-- Submit Button -->
+              <button class="btn btn-primary btn-sm mt-3" type="submit">
+                <i class="fa fa-save"></i>{{ "SAVE" | translate }}
+              </button>
+
+              <!-- Cancel Button -->
+              <button
+                class="btn btn-primary btn-sm mt-3 mx-3"
+                (click)="resetForm()"
+              >
+                <i class="fa fa-cancel"></i>{{ "CANCEL" | translate }}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loader></app-loader>

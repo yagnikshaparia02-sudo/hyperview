@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      {{ "IMPORT" | translate }}
+    </h3>
+  </div>
+  <form
+    autocomplete="off"
+    (ngSubmit)="onSubmitForm(userFrm)"
+    novalidate
+    #userFrm="ngForm"
+    InvalidFormScrollNGFormDirective
+  >
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div>
+            <input
+              type="file"
+              #fileInput
+              name="fileInput"
+              required
+              (change)="fileChange($event)"
+              placeholder="Upload file"
+              accept=".csv, .xlsx"
+            />
+          </div>
+          <mat-error *ngIf="showError">
+            {{ "PLEASE_UPLOAD_FILE" | translate }}
+          </mat-error>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary btn-sm mx-2">
+        <i class="fa fa-save"></i>{{ "SAVE" | translate }}
+      </button>
+      <button
+        type="button"
+        (click)="closePopup()"
+        class="btn btn-secondary btn-sm mx-2"
+      >
+        <i class="fa fa-remove"></i>{{ "CANCEL" | translate }}
+      </button>
+    </div>
+  </form>
+</div>

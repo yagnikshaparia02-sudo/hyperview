@@ -1,0 +1,55 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Export CSV</h3>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="Csvform" (ngSubmit)="ExportCsv(Csvform.value)">
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>Order Number</mat-label>
+            <input
+              matInput
+              type="text"
+              class="form-control"
+              name="Order Number"
+              placeholder="Enter Order Number"
+              formControlName="ordernum"
+            />
+          </mat-form-field>
+
+          <mat-error
+            *ngIf="
+              Csvform.get('ordernum').touched && Csvform.get('ordernum').errors
+            "
+          >
+            <span *ngIf="Csvform.get('ordernum').errors['required']"
+              >Please enter Order Number</span
+            >
+            <span *ngIf="Csvform.get('ordernum').errors['pattern']"
+              >Please enter a valid number</span
+            >
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="card-footer text-center">
+        <button
+          type="submit"
+          class="btn btn-primary btn-sm mx-2"
+          [disabled]="Csvform.invalid"
+        >
+          <i class="fa fa-save"></i>{{ "Load" }}
+        </button>
+        <button type="button" class="btn btn-sm btn-warning" (click)="Reset()">
+          <i class="fa fa-refresh"></i> {{ "RESET" | translate }}
+        </button>
+      </div>
+    </form>
+    <div class="card-footer" *ngIf="IsMessage">
+      <button type="button" class="btn btn-primary btn-sm mx-2">
+        {{ this.SuccessMessage }}
+      </button>
+    </div>
+  </div>
+</div>

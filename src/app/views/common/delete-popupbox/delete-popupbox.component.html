@@ -1,0 +1,22 @@
+<div class="">
+  <div class="text-danger" mat-dialog-title>{{ 'DELETE' | translate }}</div>
+  <div>
+    <div class="text-center">
+      {{ message }}
+    </div>
+  </div>
+  <div mat-dialog-actions class="pull-right">
+    <button type="button" [disabled]="isLoading" class="btn btn-primary btn-sm mx-2 pull-right" (click)="deleteData()">
+      <ng-container *ngIf="isLoading">
+        <span class="indicator-progress" [style.display]="'block'">
+          {{ 'PLEASE_WAIT' | translate }}
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </ng-container>
+      <ng-container *ngIf="!isLoading">
+        <span class="indicator-label">Yes</span>
+      </ng-container>
+    </button>
+    <button type="button" class="btn btn-warning btn-sm mx-2 pull-right" (click)="decline()">No</button>
+  </div>
+</div>

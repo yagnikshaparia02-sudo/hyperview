@@ -1,0 +1,74 @@
+<!-- <ng-container *ngIf="user$ | async as _user"> -->
+<div class="menu-item px-3">
+  <div class="menu-content d-flex align-items-center px-3">
+    <!-- <div class="symbol symbol-50px me-5">
+      <img alt="Logo" [src]="userDetails.image" />
+    </div> -->
+
+    <div class="d-flex flex-column">
+      <div class="fw-bolder d-flex align-items-center fs-5">
+        {{ userDetails.name }}
+        <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"
+          >Pro</span
+        >
+      </div>
+      <a class="fw-bold text-muted text-hover-primary fs-7 cursor-pointer">
+        {{ userDetails.email }}
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="separator my-2"></div>
+
+<div class="menu-item px-2">
+  <a routerLink="/manage-profile" class="menu-link px-2">
+    <span class="menu-icon">
+      <span><i class="fa fa-user-o" aria-hidden="true"></i></span> </span
+    ><span class="menu-title">Change Password</span>
+  </a>
+</div>
+<div class="separator my-2"></div>
+
+<ng-container *ngxPermissionsOnly="['users.list']">
+  <div class="menu-item px-2 my-1">
+    <a routerLink="/manage-user" class="menu-link px-2">
+      <span class="menu-icon">
+        <span><i class="fa fa-user-o" aria-hidden="true"></i></span> </span
+      ><span class="menu-title">Manage User</span>
+    </a>
+  </div>
+  <div class="separator my-2"></div>
+</ng-container>
+
+<ng-container *ngxPermissionsOnly="['userRoles.list']">
+  <div class="menu-item px-2 my-1">
+    <a routerLink="/manage-role-permission" class="menu-link px-2">
+      <span class="menu-icon">
+        <span><i class="fa fa-lock" aria-hidden="true"></i></span> </span
+      ><span class="menu-title">Role & Permissions</span>
+    </a>
+  </div>
+  <div class="separator my-2"></div>
+</ng-container>
+
+<ng-container *ngxPermissionsOnly="['userPermissions.list']">
+  <div class="menu-item px-2 my-1">
+    <a routerLink="/manage-permissions" class="menu-link px-2">
+      <span class="menu-icon">
+        <span><i class="fa fa-lock" aria-hidden="true"></i></span> </span
+      ><span class="menu-title">Manage Permissions</span>
+    </a>
+  </div>
+  <div class="separator my-2"></div>
+</ng-container>
+
+<div class="menu-item px-2">
+  <a (click)="logout()" class="menu-link px-2 cursor-pointer"
+    ><span class="menu-icon">
+      <i class="fa fa-sign-out" aria-hidden="true"></i>
+    </span>
+    Sign Out
+  </a>
+</div>
+<!-- </ng-container> -->

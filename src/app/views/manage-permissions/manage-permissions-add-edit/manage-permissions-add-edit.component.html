@@ -1,0 +1,127 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      {{
+        !editId
+          ? ("USER_PERMISSION_CREATE" | translate)
+          : ("USER_PERMISSION_EDIT" | translate)
+      }}
+    </h3>
+    <button
+      class="btn btn-sm btn-secondary mx-2 pull-right"
+      routerLink="/manage-permissions"
+    >
+      <i class="fa fa-arrow-left" aria-hidden="true"></i
+      >{{ "BACK" | translate }}
+    </button>
+  </div>
+  <form
+    autocomplete="off"
+    (ngSubmit)="onSubmitForm(permissionFrm)"
+    novalidate
+    #permissionFrm="ngForm"
+    InvalidFormScrollNGFormDirective
+  >
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-error-msg pull-right">
+            {{ "SIGNED_FIELD_IS_REQUIRED" | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div>
+            <label id="radio-group-label"
+              >{{ "PARENT_OR_CHILD_PERMISSION" | translate }}*</label
+            >
+          </div>
+          <mat-radio-group
+            aria-label="radio-group-label"
+            name="isParentSelected"
+            [(ngModel)]="model.isParentSelected"
+          >
+            <mat-radio-button [value]="false">{{
+              "NO_PARENT" | translate
+            }}</mat-radio-button>
+            <mat-radio-button [value]="true">{{
+              "SELECT_PARENT" | translate
+            }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "SELECT_PERMISSION" | translate }}</mat-label>
+            <mat-select
+              [disabled]="!model.isParentSelected"
+              required
+              [(ngModel)]="model.parentId"
+              name="parentId"
+              #parentId="ngModel"
+            >
+              <ng-container *ngFor="let permission of permissionList">
+                <mat-option value="{{ permission.id }}">{{
+                  permission.displayName
+                }}</mat-option>
+              </ng-container>
+            </mat-select>
+            <mat-error *ngIf="parentId.errors?.required && submitted">{{
+              "PLEASE_PARENT_PERMISSION" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "SYSTEM_NAME" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.name"
+              type="text"
+              name="name"
+              placeholder="{{ 'SYSTEM_NAME' | translate }}"
+              required
+              #name="ngModel"
+              required
+            />
+            <mat-error *ngIf="name.errors?.required && submitted">{{
+              "PLEASE_ENTER_SYSTEM_NAME" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "DISPLAY_NAME" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.displayName"
+              type="text"
+              name="displayName"
+              placeholder="{{ 'DISPLAY_NAME' | translate }}"
+              required
+              #displayName="ngModel"
+              required
+            />
+            <mat-error *ngIf="displayName.errors?.required && submitted">{{
+              "PLEASE_ENTER_DISPLAY_NAME" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary btn-sm mx-2">
+        <i class="fa fa-save"></i>{{ "SAVE" | translate }}
+      </button>
+      <button
+        type="button"
+        routerLink="/manage-permissions"
+        class="btn btn-secondary btn-sm mx-2"
+      >
+        <i class="fa fa-remove"></i>{{ "CANCEL" | translate }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<app-loader></app-loader>

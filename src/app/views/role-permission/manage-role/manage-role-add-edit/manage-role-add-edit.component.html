@@ -1,0 +1,106 @@
+<div class="show-more-dialog">
+  <div mat-dialog-title>
+    <div>
+      {{
+        data.editId ? ("UPDATE_ROLE" | translate) : ("CREATE_ROLE" | translate)
+      }}
+      <i
+        class="fa fa-times pull-right"
+        (click)="closeDialog()"
+        aria-hidden="true"
+      ></i>
+    </div>
+  </div>
+  <form
+    autocomplete="off"
+    (ngSubmit)="onSubmitForm(roleFrm)"
+    novalidate
+    #roleFrm="ngForm"
+    InvalidFormScrollNGFormDirective
+  >
+    <mat-dialog-content>
+      <div class="card">
+        <div class="card-body">
+          <mat-form-field class="mb-0" appearance="outline">
+            <mat-label>{{ "ACTIONS" | translate }}</mat-label>
+            <mat-select
+              name="rolelistModel"
+              [(ngModel)]="modelDdl.roleId"
+              (ngModelChange)="selectRoleChange1($event)"
+              #rolelistModel="ngModel"
+             
+            >
+              <mat-option aria-selected="true" value="">{{
+                "Select Role"
+              }}</mat-option>
+              <mat-option *ngFor="let action of roleList" [value]="action.id">{{
+                action.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-error-msg pull-right">
+                {{ "SIGNED_FIELD_IS_REQUIRED" | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field appearance="outline" class="input-box">
+                <mat-label>{{ "ROLE_NAME" | translate }}</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="model.name"
+                  type="text"
+                  name="name"
+                  placeholder="{{ 'ROLE_NAME' | translate }}"
+                  required
+                  #roleName="ngModel"
+                  required
+                />
+                <mat-error *ngIf="roleName.errors?.required && submitted">{{
+                  "PLEASE_ENTER_ROLE_NAME" | translate
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <app-manage-permission
+                [commingFromRole]="true"
+                (selectPermission)="selectedPermissions($event)"
+              ></app-manage-permission>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <div mat-dialog-actions class="pull-right">
+      <button
+        type="submit"
+        [disabled]="isLoading"
+        class="btn btn-primary btn-sm mx-2"
+      >
+        <ng-container *ngIf="isLoading">
+          <span class="indicator-progress" [style.display]="'block'">
+            {{ "PLEASE_WAIT" | translate }}
+            <span
+              class="spinner-border spinner-border-sm align-middle ms-2"
+            ></span>
+          </span>
+        </ng-container>
+        <ng-container *ngIf="!isLoading">
+          <i class="fa fa-save"></i>
+          {{ "SAVE" | translate }}
+        </ng-container>
+      </button>
+      <button
+        type="button"
+        (click)="closeDialog()"
+        class="btn btn-secondary btn-sm mx-2"
+      >
+        <i class="fa fa-remove"></i>{{ "CANCEL" | translate }}
+      </button>
+    </div>
+  </form>
+</div>
+<app-loader></app-loader>

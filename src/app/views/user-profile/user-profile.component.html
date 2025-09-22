@@ -1,0 +1,171 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">User Profile</h3>
+    <!-- <button class="btn btn-sm btn-secondary mx-2 pull-right" routerLink="/manage-purchase-cost">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i>{{ 'BACK' | translate }}
+    </button> -->
+  </div>
+  <form
+    autocomplete="off"
+    (ngSubmit)="onSubmitForm(userFrm)"
+    novalidate
+    #userFrm="ngForm"
+    InvalidFormScrollNGFormDirective
+  >
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-error-msg pull-right">
+            {{ "Siged field is required" }}
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "First Name" }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.firstname"
+              type="text"
+              name="firstname"
+              placeholder="{{ 'First Name' }}"
+              required
+              #firstname="ngModel"
+              required
+            />
+            <mat-error *ngIf="firstname.errors?.required && submitted">
+              {{ "Please enter first name" }}</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "Last Name" }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.lastname"
+              type="text"
+              name="lastname"
+              placeholder="{{ 'Last Name' | translate }}"
+              required
+              #lastname="ngModel"
+              required
+            />
+            <mat-error *ngIf="lastname.errors?.required && submitted">{{
+              "Please enter last name"
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "Company Name" }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.company"
+              type="text"
+              name="company"
+              placeholder="{{ 'Company Name' | translate }}"
+              required
+              #company="ngModel"
+            />
+            <mat-error *ngIf="company.errors?.required && submitted">{{
+              "Please enter company name"
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "Email Address" }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.emailAddress"
+              type="email"
+              name="emailAddress"
+              placeholder="{{ 'Email Address' | translate }}"
+              required
+              [email]="true"
+              #emailAddress="ngModel"
+            />
+            <mat-error *ngIf="emailAddress.errors?.required && submitted">{{
+              "Please enter Email Address"
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="pull-right" style="padding-bottom: 10px">
+            <button
+              class="btn btn-sm btn-primary"
+              type="button"
+              (click)="adduserWiseEmails()"
+            >
+              <i class="fa fa-plus-circle fa-lg"></i
+              >{{ "Add New Email" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row justify-content-center"
+        *ngFor="let item of model.userWiseEmails; let i = index"
+      >
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "Email Address" }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="item.emailAddress"
+              type="email"
+              name="emailAddress{{ i }}"
+              placeholder="{{ 'Email Address' | translate }}"
+              required
+              #emailAddress="ngModel"
+              [email]="true"
+              required
+            />
+            <mat-error *ngIf="emailAddress.errors?.required && submitted">{{
+              "Please enter Email Address"
+            }}</mat-error>
+            <a matSuffix (click)="singleDelete(i)">
+              <mat-icon
+                matTooltip="{{ 'DELETE' | translate }}"
+                class="mat-icon-sm text-danger mx-1"
+              >
+                delete_forever</mat-icon
+              >
+            </a>
+          </mat-form-field>
+        </div>
+        <!-- <div class="col-md-1">
+          <a (click)="singleDelete(i)" *ngIf="i > 0">
+            <mat-icon
+              matTooltip="{{ 'DELETE' | translate }}"
+              class="mat-icon-sm text-danger mx-1"
+            >
+              delete_forever</mat-icon
+            >
+          </a>
+        </div> -->
+      </div>
+    </div>
+    <div class="card-footer" *ngxPermissionsOnly="['users.edit']">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-primary btn-sm mx-2 pull-right">
+            <i class="fa fa-save"></i>{{ "SAVE" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-loader></app-loader>

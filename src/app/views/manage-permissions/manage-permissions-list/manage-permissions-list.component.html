@@ -1,0 +1,233 @@
+<div class="row mb-2">
+  <div class="col-md-12">
+    <mat-accordion>
+      <mat-expansion-panel
+        (opened)="isFilterOpen = true"
+        (closed)="isFilterOpen = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            ><i class="fa fa-filter m-1"></i> {{ "FILTER" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <!-- <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ 'SYSTEM_NAME' | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="filter.Name"
+                type="text"
+                name="name"
+                placeholder="{{ 'SYSTEM_NAME' | translate }}"
+                #name="ngModel"
+              />
+            </mat-form-field>
+          </div> -->
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "DISPLAY_NAME" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="filter.DisplayName"
+                type="text"
+                name="DisplayName"
+                placeholder="{{ 'DISPLAY_NAME' | translate }}"
+                #DisplayName="ngModel"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 pull-right mt-1">
+            <button
+              type="submit"
+              (click)="applyFilter()"
+              class="btn btn-sm btn-primary mx-2 pull-right"
+            >
+              <i class="fa fa-search"></i> {{ "FILTER" | translate }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-warning pull-right"
+              (click)="resetFilter()"
+            >
+              <i class="fa fa-refresh"></i> {{ "RESET" | translate }}
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">{{ "MANAGE_USER_PERMISSIONS" | translate }}</h3>
+        <button
+          class="btn btn-sm btn-primary"
+          *ngxPermissionsOnly="['userPermissions.create']"
+          routerLink="/manage-permissions/create"
+        >
+          <i class="fa fa-plus-circle fa-lg"></i
+          >{{ "ADD_USER_NEW_PERMISSION" | translate }}
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div
+            class="col-md-6"
+            *ngxPermissionsOnly="['userPermissions.delete']"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "ACTIONS" | translate }}</mat-label>
+              <mat-select
+                name="deleteStatus"
+                [(ngModel)]="actionsDeleteStatus"
+                #deleteStatus="ngModel"
+              >
+                <mat-option
+                  *ngFor="let action of actionList"
+                  [value]="action.value"
+                  >{{ action.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+            <button
+              type="button"
+              [disabled]="selection.selected.length <= 0"
+              class="btn btn-secondary btn-sm mx-2 mb-2"
+              (click)="performAction()"
+            >
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+              {{ "PERFORM_ACTION" | translate }}
+            </button>
+          </div>
+          <div class="table-spinner-container table-responsive">
+            <app-table-loader *ngIf="loading"></app-table-loader>
+            <mat-table
+              recycleRows
+              [dataSource]="dataSource"
+              matSort
+              class="mat-elevation-z8"
+            >
+              <ng-container matColumnDef="select">
+                <mat-header-cell
+                  class="table-checkbox-width"
+                  mat-header-cell
+                  *matHeaderCellDef
+                >
+                  <mat-checkbox
+                    (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                    [aria-label]="checkboxLabel()"
+                  >
+                  </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell
+                  class="table-checkbox-width"
+                  mat-cell
+                  *matCellDef="let row"
+                >
+                  <mat-checkbox
+                    (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)"
+                    [aria-label]="checkboxLabel(row)"
+                  >
+                  </mat-checkbox>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="displayName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ "DISPLAY_NAME" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.displayName || noData }}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ "SYSTEM_NAME" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.name || noData }}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container
+                *ngxPermissionsOnly="[
+                  'userPermissions.edit',
+                  'userPermissions.delete'
+                ]"
+              >
+                <ng-container matColumnDef="action">
+                  <ng-container>
+                    <mat-header-cell
+                      class="min-table-cell-width"
+                      *matHeaderCellDef
+                    >
+                      {{ "ACTION" | translate }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      <a
+                        *ngxPermissionsOnly="['userPermissions.edit']"
+                        routerLink="/manage-permissions/edit/{{ element.id }}"
+                      >
+                        <mat-icon
+                          matTooltip="{{
+                            ('EDIT' | translate) + ' ' + element.name
+                          }}"
+                          class="mat-icon-sm text-primary mx-1"
+                        >
+                          border_color</mat-icon
+                        >
+                      </a>
+                      <a
+                        *ngxPermissionsOnly="['userPermissions.delete']"
+                        (click)="singleDelete(element.id)"
+                      >
+                        <mat-icon
+                          matTooltip="{{
+                            ('DELETE' | translate) + ' ' + element.name
+                          }}"
+                          class="mat-icon-sm text-danger mx-1"
+                        >
+                          delete_forever</mat-icon
+                        >
+                      </a>
+                    </mat-cell>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+
+              <mat-header-row
+                *matHeaderRowDef="displayedColumns"
+              ></mat-header-row>
+              <mat-row
+                *matRowDef="let row; columns: displayedColumns"
+              ></mat-row>
+            </mat-table>
+            <div class="text-center text-danger" *ngIf="listData.length <= 0">
+              {{ "NO_RECORDS_FOUND" | translate }}
+            </div>
+          </div>
+          <mat-paginator
+            #paginator
+            style-paginator
+            [showTotalPages]="showTotalPagesNumber"
+            [length]="totalRecords"
+            [pageIndex]="currentPageNumber"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="pageChanged($event)"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

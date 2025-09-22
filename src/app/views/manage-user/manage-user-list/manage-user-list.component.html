@@ -1,0 +1,408 @@
+<div class="row mb-2">
+  <div class="col-md-12">
+    <mat-accordion>
+      <mat-expansion-panel
+        (opened)="isFilterOpen = true"
+        (closed)="isFilterOpen = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title
+            ><i class="fa fa-filter m-1"></i> {{ "FILTER" | translate }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "FIRST_NAME" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="filter.firstname"
+                type="text"
+                firstname="firstname"
+                placeholder="{{ 'FIRST_NAME' | translate }}"
+                #firstname="ngModel"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "LAST_NAME" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="filter.lastname"
+                type="text"
+                lastname="lastname"
+                placeholder="{{ 'LAST_NAME' | translate }}"
+                #lastname="ngModel"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "EMAIL" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="filter.emailAddress"
+                type="text"
+                name="emailAddress"
+                placeholder="{{ 'EMAIL' | translate }}"
+                #emailAddress="ngModel"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "COMPANY" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="filter.company"
+                type="text"
+                name="company"
+                placeholder="{{ 'COMPANY' | translate }}"
+                #emailAddress="ngModel"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "ROLE" | translate }}</mat-label>
+              <mat-select name="role" [(ngModel)]="filter.role" #role="ngModel">
+                <ng-container *ngFor="let role of roleList">
+                  <mat-option [value]="role.name">{{ role.name }}</mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "STATUS" | translate }}</mat-label>
+              <mat-select
+                name="status"
+                [(ngModel)]="filter.status"
+                #status="ngModel"
+              >
+                <mat-option value="{{ statusEnum.active }}">{{
+                  statusEnum.active
+                }}</mat-option>
+                <mat-option value="{{ statusEnum.inactive }}">{{
+                  statusEnum.inactive
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "LAST_LOGIN_DATE" | translate }}</mat-label>
+              <mat-date-range-input [rangePicker]="picker1">
+                <input
+                  matStartDate
+                  [(ngModel)]="filter.lastLoginDate.from"
+                  name="lastLoginDateFrom"
+                  #lastLoginDateFrom="ngModel"
+                  placeholder="Start date"
+                />
+                <input
+                  matEndDate
+                  [(ngModel)]="filter.lastLoginDate.to"
+                  name="lastLoginDateTo"
+                  #lastLoginDateTo="ngModel"
+                  placeholder="End date"
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker1"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker1></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="input-box">
+              <mat-label>{{ "CREATED_AT_DATE" | translate }}</mat-label>
+              <mat-date-range-input [rangePicker]="picker2">
+                <input
+                  matStartDate
+                  [(ngModel)]="filter.createdAtDate.from"
+                  name="createdAtDateFrom"
+                  #createdAtDateFrom="ngModel"
+                  placeholder="Start date"
+                />
+                <input
+                  matEndDate
+                  [(ngModel)]="filter.createdAtDate.to"
+                  name="createdAtDateTo"
+                  #createdAtDateTo="ngModel"
+                  placeholder="End date"
+                />
+              </mat-date-range-input>
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker2"
+              ></mat-datepicker-toggle>
+              <mat-date-range-picker #picker2></mat-date-range-picker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12 pull-right">
+            <button
+              type="submit"
+              (click)="applyFilter()"
+              class="btn btn-sm btn-primary mx-2 pull-right"
+            >
+              <i class="fa fa-search"></i> {{ "FILTER" | translate }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-warning pull-right"
+              (click)="resetFilter()"
+            >
+              <i class="fa fa-refresh"></i> {{ "RESET" | translate }}
+            </button>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">{{ "USER_LIST" | translate }}</h3>
+        <button
+          class="btn btn-sm btn-primary"
+          *ngxPermissionsOnly="['users.create']"
+          routerLink="/manage-user/create"
+        >
+          <i class="fa fa-plus-circle fa-lg"></i
+          >{{ "ADD_USER_NEW" | translate }}
+        </button>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6" *ngxPermissionsOnly="['users.delete']">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "ACTIONS" | translate }}</mat-label>
+              <mat-select
+                name="deleteStatus"
+                [(ngModel)]="actionsDeleteStatus"
+                #deleteStatus="ngModel"
+              >
+                <mat-option
+                  *ngFor="let action of actionList"
+                  [value]="action.value"
+                  >{{ action.name }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+            <button
+              type="button"
+              [disabled]="selection.selected.length <= 0"
+              class="btn btn-secondary btn-sm mx-2 mb-2"
+              (click)="performAction()"
+            >
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+              {{ "PERFORM_ACTION" | translate }}
+            </button>
+          </div>
+          <div class="table-spinner-container table-responsive">
+            <app-table-loader *ngIf="loading"></app-table-loader>
+            <mat-table
+              recycleRows
+              [dataSource]="dataSource"
+              matSort
+              matSortDirection="asc"
+              (matSortChange)="sortData($event)"
+              class="mat-elevation-z8"
+            >
+              <ng-container matColumnDef="select">
+                <mat-header-cell
+                  class="table-checkbox-width"
+                  mat-header-cell
+                  *matHeaderCellDef
+                >
+                  <mat-checkbox
+                    (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()"
+                    [aria-label]="checkboxLabel()"
+                  >
+                  </mat-checkbox>
+                </mat-header-cell>
+                <mat-cell
+                  class="table-checkbox-width"
+                  mat-cell
+                  *matCellDef="let row"
+                >
+                  <mat-checkbox
+                    (click)="$event.stopPropagation()"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)"
+                    [aria-label]="checkboxLabel(row)"
+                  >
+                  </mat-checkbox>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="firstname">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ "FIRST_NAME" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.firstname || noData }}
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="lastname">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ "LAST_NAME" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.lastname || noData }}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ "EMAIL" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.email || noData }}
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="company">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ "COMPANY" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{ element.company || noData }}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="role">
+                <mat-header-cell *matHeaderCellDef>
+                  {{ "ROLE" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <ng-container *ngIf="element.roles.length > 0">
+                    <app-badge-custom-label
+                      [ListData]="element.roles"
+                    ></app-badge-custom-label>
+                  </ng-container>
+                  <ng-container *ngIf="element.roles.length <= 0">{{
+                    noData
+                  }}</ng-container>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="isActive">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ "STATUS" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <span
+                    [ngClass]="getStatusClass(element.isActive)"
+                    class="badge"
+                    >{{
+                      (element.isActive ? "Active" : "Inactive") || noData
+                    }}</span
+                  >
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="lastLoginAt">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ "LAST_LOGIN" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{
+                    (element.lastLoginAt
+                      | customDate: momentDateTime12Format) || noData
+                  }}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="createdAt">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{ "CREATED_AT" | translate }}
+                </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  {{
+                    (element.createdAt | customDate: momentDateTime12Format) ||
+                      noData
+                  }}
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="actiom_filter">
+                <mat-header-cell
+                  class="mat-header-filter"
+                  *matHeaderCellDef
+                  mat-sort-header
+                >
+                </mat-header-cell>
+              </ng-container>
+
+              <ng-container
+                *ngxPermissionsOnly="['users.edit', 'users.delete']"
+              >
+                <ng-container matColumnDef="action">
+                  <mat-header-cell
+                    class="min-table-cell-width"
+                    *matHeaderCellDef
+                  >
+                    {{ "ACTION" | translate }}
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <a
+                      *ngxPermissionsOnly="['users.edit']"
+                      routerLink="/manage-user/edit/{{ element.userId }}"
+                    >
+                      <mat-icon
+                        matTooltip="{{ 'EDIT' | translate }}"
+                        class="mat-icon-sm text-primary mx-1"
+                      >
+                        border_color</mat-icon
+                      >
+                    </a>
+                    <a
+                      *ngxPermissionsOnly="['users.delete']"
+                      (click)="singleDelete(element.userId)"
+                    >
+                      <mat-icon
+                        matTooltip="{{ 'DELETE' | translate }}"
+                        class="mat-icon-sm text-danger mx-1"
+                      >
+                        delete_forever</mat-icon
+                      >
+                    </a>
+                  </mat-cell>
+                </ng-container>
+              </ng-container>
+
+              <mat-header-row
+                *matHeaderRowDef="displayedColumns"
+              ></mat-header-row>
+              <mat-row
+                *matRowDef="let row; columns: displayedColumns"
+              ></mat-row>
+            </mat-table>
+            <div class="text-center text-danger" *ngIf="dataSource.length <= 0">
+              {{ "NO_RECORDS_FOUND" | translate }}
+            </div>
+          </div>
+          <mat-paginator
+            #paginator
+            style-paginator
+            [showTotalPages]="showTotalPagesNumber"
+            [length]="totalRecords"
+            [pageIndex]="currentPageNumber"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            (page)="pageChanged($event)"
+          >
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

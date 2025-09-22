@@ -1,0 +1,353 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">
+      {{ !editId ? ("USER_CREATE" | translate) : ("USER_EDIT" | translate) }}
+    </h3>
+    <button
+      class="btn btn-sm btn-secondary mx-2 pull-right"
+      routerLink="/manage-user"
+    >
+      <i class="fa fa-arrow-left" aria-hidden="true"></i
+      >{{ "BACK" | translate }}
+    </button>
+  </div>
+  <form
+    autocomplete="off"
+    (ngSubmit)="onSubmitForm(userFrm)"
+    novalidate
+    #userFrm="ngForm"
+    InvalidFormScrollNGFormDirective
+  >
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-error-msg pull-right">
+            {{ "SIGNED_FIELD_IS_REQUIRED" | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "USER_NAME" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.Username"
+              type="text"
+              name="Username"
+              placeholder="{{ 'USER_NAME' | translate }}"
+              #Username="ngModel"
+              required
+            />
+            <mat-error *ngIf="Username.errors?.required && submitted">{{
+              "PLEASE_ENTER_USERNAME" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6" *ngIf="!editId">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "PASSWORD" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.Password"
+              type="{{ hidePassword ? 'Password' : 'text' }}"
+              name="Password"
+              placeholder="{{ 'PASSWORD' | translate }}"
+              required
+              #Password="ngModel"
+              [pattern]="CommonRegx.PasswordRegx"
+              required
+            />
+            <button
+              class="input-with-icon"
+              mat-icon-button
+              matSuffix
+              (click)="hidePassword = !hidePassword"
+            >
+              <mat-icon>{{
+                hidePassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            <mat-error *ngIf="Password.errors?.required && submitted">{{
+              "PLEASE_ENTER_PASSWORD" | translate
+            }}</mat-error>
+            <mat-error *ngIf="Password.errors?.pattern && submitted">{{
+              "PLEASE_ENTER_VALID_PASSWORD" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "FIRST_NAME" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.Firstname"
+              type="text"
+              name="Firstname"
+              placeholder="{{ 'FIRST_NAME' | translate }}"
+              #Firstname="ngModel"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "LAST_NAME" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.Lastname"
+              type="text"
+              name="Lastname"
+              placeholder="{{ 'LAST_NAME' | translate }}"
+              #Lastname="ngModel"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "EMAIL" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.EmailAddress"
+              type="EmailAddress"
+              name="EmailAddress"
+              placeholder="{{ 'EMAIL' | translate }}"
+              required
+              #EmailAddress="ngModel"
+              required
+            />
+            <mat-error *ngIf="EmailAddress.errors?.email && submitted">{{
+              "PLEASE_ENTER_VALID_EMAIL" | translate
+            }}</mat-error>
+            <mat-error *ngIf="EmailAddress.errors?.required && submitted">{{
+              "PLEASE_ENTER_EMAIL" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "COMPANY" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.Company"
+              type="text"
+              name="Company"
+              placeholder="{{ 'COMPANY' | translate }}"
+              #Company="ngModel"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "ADDRESS1" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.Address1"
+              type="text"
+              name="Address1"
+              placeholder="{{ 'ADDRESS1' | translate }}"
+              #Address1="ngModel"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "ADDRESS2" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.Address2"
+              type="text"
+              name="Address2"
+              placeholder="{{ 'ADDRESS2' | translate }}"
+              #Address2="ngModel"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "CITY" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.City"
+              type="text"
+              name="City"
+              placeholder="{{ 'CITY' | translate }}"
+              #City="ngModel"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "COUNTRY" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.Country"
+              type="text"
+              name="Country"
+              placeholder="{{ 'COUNTRY' | translate }}"
+              #Country="ngModel"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "PHONENUMBER" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.PhoneNumber"
+              type="text"
+              name="PhoneNumber"
+              placeholder="{{ 'PHONENUMBER' | translate }}"
+              #PhoneNumber="ngModel"
+              required
+            />
+            <mat-error *ngIf="PhoneNumber.errors?.required && submitted">{{
+              "PLEASE_ENTER_PHONENUMBER" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "LINNWORKSID" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.LinnworksId"
+              type="text"
+              name="LinnworksId"
+              placeholder="{{ 'LINNWORKSID' | translate }}"
+              #LinnworksId="ngModel"
+              required
+            />
+            <mat-error *ngIf="LinnworksId.errors?.required && submitted">{{
+              "PLEASE_ENTER_LINNWORKSID" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "LINNWORKSAPPLICATIONTOKEN" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.LinnworksApplicationToken"
+              type="text"
+              name="LinnworksApplicationToken"
+              placeholder="{{ 'LINNWORKSAPPLICATIONTOKEN' | translate }}"
+              #LinnworksApplicationToken="ngModel"
+              required
+            />
+            <mat-error
+              *ngIf="LinnworksApplicationToken.errors?.required && submitted"
+              >{{
+                "PLEASE_ENTER_LINNWORKSAPPLICATIONTOKEN" | translate
+              }}</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "LINNWORKSUSERTOKEN" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.LinnworksUserToken"
+              type="text"
+              name="LinnworksUserToken"
+              placeholder="{{ 'LINNWORKSUSERTOKEN' | translate }}"
+              #LinnworksUserToken="ngModel"
+              required
+            />
+            <mat-error
+              *ngIf="LinnworksUserToken.errors?.required && submitted"
+              >{{ "PLEASE_ENTER_LINNWORKSUSERTOKEN" | translate }}</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "LINNWORKSSERVERURL" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.LinnworksServerUrl"
+              type="text"
+              name="LinnworksServerUrl"
+              placeholder="{{ 'LINNWORKSSERVERURL' | translate }}"
+              #LinnworksServerUrl="ngModel"
+              required
+            />
+            <mat-error
+              *ngIf="LinnworksServerUrl.errors?.required && submitted"
+              >{{ "PLEASE_ENTER_LINNWORKSSERVERURL" | translate }}</mat-error
+            >
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "STRIPCUSTOMERID" | translate }}</mat-label>
+            <input
+              matInput
+              [(ngModel)]="model.StripCustomerId"
+              type="text"
+              name="StripCustomerId"
+              placeholder="{{ 'STRIPCUSTOMERID' | translate }}"
+              #StripCustomerId="ngModel"
+              required
+            />
+            <mat-error *ngIf="StripCustomerId.errors?.required && submitted">{{
+              "PLEASE_ENTER_STRIPCUSTOMERID" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <div>
+            <label id="radio-group-label">{{ "STATUS" | translate }}*</label>
+          </div>
+          <mat-radio-group
+            aria-label="radio-group-label"
+            name="status"
+            [(ngModel)]="model.isActive"
+          >
+            <mat-radio-button value="{{ statusEnum.active }}">{{
+              statusEnum.active
+            }}</mat-radio-button>
+            <mat-radio-button value="{{ statusEnum.inactive }}">{{
+              statusEnum.inactive
+            }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "SELECT_ROLES" | translate }}</mat-label>
+            <mat-select
+              required
+              [(ngModel)]="model.roles"
+              name="roles"
+              #roles="ngModel"
+              multiple
+            >
+              <ng-container *ngFor="let role of roleList">
+                <mat-option value="{{ role.id }}">{{ role.name }}</mat-option>
+              </ng-container>
+            </mat-select>
+            <mat-error *ngIf="roles.errors?.required && submitted">{{
+              "PLEASE_SELECT_ROLE" | translate
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary btn-sm mx-2">
+        <i class="fa fa-save"></i>{{ "SAVE" | translate }}
+      </button>
+      <button
+        type="button"
+        routerLink="/manage-user"
+        class="btn btn-secondary btn-sm mx-2"
+      >
+        <i class="fa fa-remove"></i>{{ "CANCEL" | translate }}
+      </button>
+    </div>
+  </form>
+</div>
+
+<app-loader></app-loader>

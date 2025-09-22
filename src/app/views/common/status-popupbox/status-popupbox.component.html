@@ -1,0 +1,20 @@
+<div class="">
+  <div class="text-danger" mat-dialog-title>{{ 'STATUS' | translate }}</div>
+  <div>
+    <div class="text-center">{{ message }}</div>
+  </div>
+  <div mat-dialog-actions class="pull-right">
+    <button type="button" [disabled]="isLoadingStatus" class="btn btn-primary btn-sm mx-2 pull-right" (click)="statusData()">
+      <ng-container *ngIf="isLoadingStatus">
+        <span class="indicator-progress" [style.display]="'block'">
+          {{ 'PLEASE_WAIT' | translate }}
+          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+        </span>
+      </ng-container>
+      <ng-container *ngIf="!isLoadingStatus">
+        <span class="indicator-label">{{ 'YES' | translate }}</span>
+      </ng-container>
+    </button>
+    <button type="button" class="btn btn-warning btn-sm mx-2 pull-right" (click)="decline()">{{ 'NO' | translate }}</button>
+  </div>
+</div>

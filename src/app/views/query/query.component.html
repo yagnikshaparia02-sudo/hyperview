@@ -1,0 +1,213 @@
+<!-- <router-outlet></router-outlet> -->
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Generate Report</h3>
+    <!-- <button
+          class="btn btn-sm btn-secondary mx-2 pull-right"
+          routerLink="/query-filter"
+        >
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </button> -->
+  </div>
+  <form
+    autocomplete="off"
+    (ngSubmit)="onSubmitForm(userFrm)"
+    novalidate
+    #userFrm="ngForm"
+    InvalidFormScrollNGFormDirective
+  >
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-error-msg pull-right">
+            <!-- {{ "SIGNED_FIELD_IS_REQUIRED" }} -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "Select Query" }}</mat-label>
+            <mat-select
+              required
+              [(ngModel)]="model.queryId"
+              name="type"
+              #queryId="ngModel"
+              (selectionChange)="changeQuery($event.value)"
+            >
+              <ng-container *ngFor="let t of queryList">
+                <mat-option value="{{ t.id }}">{{ t.name }}</mat-option>
+              </ng-container>
+            </mat-select>
+            <mat-error *ngIf="queryId.errors?.required && submitted">{{
+              "Please Select Query"
+            }}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3" *ngFor="let item of queryFilterList">
+          <div>
+            <mat-form-field
+              appearance="outline"
+              class="input-box"
+              *ngIf="item.type == 1"
+            >
+              <mat-label>{{ item.name }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="item.selectedValue"
+                type="text"
+                name="{{ item.name }}"
+                placeholder="{{ item.name }}"
+                required
+                #{{item.name}}="ngModel"
+                required
+              />
+            </mat-form-field>
+            <mat-form-field
+              appearance="outline"
+              class="input-box"
+              *ngIf="item.type == 4"
+            >
+              <mat-label>Select {{ item.name }}</mat-label>
+              <mat-select
+                required
+                [(ngModel)]="item.selectedValue"
+                name="{{ item.name }}"
+                #{{item.name}}="ngModel"
+              >
+                <ng-container *ngFor="let t of item.queryResult">
+                  <mat-option value="{{ t.id }}">{{ t.name }}</mat-option>
+                </ng-container>
+              </mat-select>
+              <!-- <mat-error *ngIf="select.errors?.required && submitted">{{
+                    "PLEASE_SELECT_TYPE"
+                  }}</mat-error> -->
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="outline"
+              class="input-box"
+              *ngIf="item.type == 2"
+            >
+              <mat-label>{{ item.name }}</mat-label>
+              <input
+                matInput
+                [hidden]="true"
+                [(ngModel)]="item.selectedValue"
+                name="{{ item.name }}"
+              />
+              <mat-checkbox
+                [(ngModel)]="item.selectedValue"
+                name="{{ item.name }}"
+              ></mat-checkbox>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="outline"
+              class="input-box"
+              *ngIf="item.type == 3"
+            >
+              <mat-label>{{ item.name }}</mat-label>
+              <input
+                required
+                [(ngModel)]="item.selectedValue"
+                name="{{ item.name }}"
+                (click)="datepicker.open()"
+                #{{item.name}}="ngModel"
+                matInput
+                [matDatepicker]="datepicker"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="datepicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #datepicker> </mat-datepicker>
+              <!-- <mat-error *ngIf="planStartDate.errors?.required && submitted">{{"PLEASE_ENTER_PLAN_START_DATE"}}</mat-error> -->
+            </mat-form-field>
+            <!-- <mat-form-field>
+                <input matInput [matDatepicker]="myDatepicker" >
+                <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #yDatepicker></mat-datepicker>
+              </mat-form-field> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary btn-sm mx-2">
+        <i class="fa fa-save"></i>{{ "Generate Report" }}
+      </button>
+    </div>
+    <div style="text-align: right; padding-top: 10px" *ngIf="totalRecords > 0">
+      <div>
+        <button
+          class="btn btn-primary btn-sm mx-2"
+          type="button"
+          (click)="SendMail()"
+        >
+          <i class="fas fa-file-excel"></i> Send Mail
+        </button>
+        <button
+          class="btn btn-primary btn-sm mx-2"
+          type="button"
+          (click)="ExportToCSV()"
+        >
+          <i class="fas fa-file-excel"></i> Export as CSV
+        </button>
+
+        <button
+          class="btn btn-primary btn-sm mx-2"
+          type="button"
+          (click)="ExportTOExcel()"
+        >
+          <i class="fas fa-file-excel"></i> Export as Excel
+        </button>
+      </div>
+      <div>
+        <mat-form-field
+          appearance="standard"
+          style="text-align: right; padding-right: 10px"
+          *ngIf="totalRecords > 0"
+        >
+          <mat-label>Filter</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="Search"
+            #input
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="table-spinner-container table-responsive" #TABLE>
+      <table
+        mat-table
+        #table
+        [dataSource]="dataSource"
+        class="generate-report-table mat-elevation-z8"
+      >
+        <ng-container
+          *ngFor="let disCol of displayedColumns; let colIndex = index"
+          matColumnDef="{{ disCol }}"
+        >
+          <th mat-header-cell *matHeaderCellDef>{{ disCol }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[disCol] }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <mat-paginator
+        *ngIf="totalRecords > 0"
+        [length]="totalRecords"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        [showFirstLastButtons]="firstLastButtons"
+        (page)="onChangePage($event)"
+      >
+      </mat-paginator>
+    </div>
+  </form>
+</div>
+<app-loader></app-loader>

@@ -1,0 +1,412 @@
+$rishvi-primary-color: #1db8a0;
+$rishvi-primary-dark-color: #158a78;
+$rishvi-danger-color: #f86c6b;
+$rishvi-success-color: #4dbd74;
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #e4e5e6;
+}
+
+.splash-screen {
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #f2f3f8;
+  font-family: Poppins, Helvetica, 'sans-serif';
+}
+
+.splash-screen img {
+  margin-left: calc(100vw - 100%);
+  margin-bottom: 30px;
+}
+
+.aside-dark .menu .menu-item.hover > .menu-link:not(.disabled):not(.active),
+.aside-dark .menu .menu-item .menu-link:hover:not(.disabled):not(.active) {
+  background-color: $rishvi-primary-color;
+}
+
+#root {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+img.ngx-loading-logo.center-center {
+  top: 51% !important;
+}
+
+.menu-item .menu-link {
+  padding: 0px;
+}
+
+// Table CSS - Start
+.mat-header-row {
+  background: $rishvi-primary-color;
+
+  .mat-header-cell {
+    font-weight: bold;
+    color: aliceblue;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  min-height: 30px;
+}
+
+.mat-table {
+  .mat-cell {
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  .mat-cell:first-child {
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .table-checkbox-width {
+    width: 10px;
+  }
+
+  .mat-sort-header-container {
+    justify-content: center;
+  }
+}
+
+.table-spinner-container {
+  position: relative;
+
+  .main-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f2f8f8ad;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #74e5cd !important;
+}
+
+.mat-sort-header-arrow {
+  color: aliceblue;
+}
+
+table {
+  width: 100%;
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+
+  .mat-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    display: table;
+    border-collapse: collapse;
+    margin: 0px;
+  }
+
+  .mat-row,
+  .mat-header-row {
+    display: table-row;
+  }
+
+  .mat-cell,
+  .mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 5px;
+    line-break: unset;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    text-align: center;
+  }
+}
+
+// Table Pagination - Start
+.mat-paginator-page-size {
+  flex: auto;
+}
+
+.mat-paginator-range-actions {
+  flex-wrap: wrap;
+  flex: auto;
+  justify-content: flex-end;
+}
+
+.mat-paginator-icon {
+  width: 50% !important;
+}
+
+// .mat-paginator-page-size {
+//   display: none !important;
+// }
+
+.mat-header-filter {
+  background-color: #ffff;
+  border: none;
+}
+
+.mat-filter-row {
+  margin: auto;
+
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 1px;
+  }
+
+  .mat-form-field-wrapper {
+    padding: 0px;
+  }
+
+  .mat-header-cell {
+    border: none !important;
+    color: black;
+    text-align: center !important;
+  }
+}
+
+// Table Pagination - End
+// Table CSS - End
+
+// Form Field CSS - Start
+.input-box {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 12px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: $rishvi-primary-color !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  // color: $rishvi-primary-color;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: $rishvi-primary-color !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick,
+.mat-form-field.mat-focused .mat-form-field-label,
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: $rishvi-primary-color;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: #f44336;
+}
+
+.mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.8em 0px !important;
+}
+
+.mat-form-field-label-wrapper {
+  top: -1em;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+  width: 133.33333%;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle,
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+.mat-radio-button.mat-accent:active .mat-radio-persistent-ripple,
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  background-color: $rishvi-primary-color;
+}
+
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element,
+.mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-primary .mat-pseudo-checkbox-checked,
+.mat-primary .mat-pseudo-checkbox-indeterminate {
+  background: $rishvi-primary-color;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  background-color: white !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: $rishvi-primary-color;
+}
+
+.mat-radio-button {
+  margin-right: 5%;
+  margin-bottom: 5%;
+}
+
+.input-with-icon {
+  border: none;
+  background: inherit;
+}
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: $rishvi-primary-color;
+}
+
+// Form Field CSS - End
+.form-error-msg {
+  color: #f44336;
+  margin-bottom: 5px;
+}
+
+.col-center {
+  float: none;
+  margin: auto;
+}
+
+.show-select select {
+  width: 75px;
+  display: inline-block;
+}
+
+//Accordian - Start
+.mat-expansion-panel-header:not([aria-disabled='true']),
+.mat-expansion-panel-header.mat-expanded:focus,
+.mat-expansion-panel-header.mat-expanded:hover {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #eff2f5;
+  background: #f0f3f5 !important;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid #eff2f5;
+}
+
+.mat-expansion-panel-header.mat-expanded {
+  height: 100%;
+}
+
+.mat-expansion-panel-header-title {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #181c32;
+  margin: auto;
+}
+
+//Accordian - End
+
+// Button - Start
+.btn-sm {
+  line-height: 1.5;
+}
+
+.btn.btn-light {
+  background-color: #818b8e;
+  color: white;
+}
+
+.btn.btn-primary {
+  background-color: $rishvi-primary-color;
+  color: white;
+}
+
+.btn-check:checked + .btn.btn-primary,
+.btn-check:active + .btn.btn-primary,
+.btn.btn-primary:focus:not(.btn-active),
+.btn.btn-primary:hover:not(.btn-active),
+.btn.btn-primary:active:not(.btn-active),
+.btn.btn-primary.active,
+.btn.btn-primary.show,
+.show > .btn.btn-primary {
+  background-color: $rishvi-primary-dark-color !important;
+  color: white;
+}
+
+// Button - end
+
+// badge - Start
+.badge-label {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  line-height: 120%;
+  white-space: normal !important;
+}
+
+.badge {
+  border-radius: 0.75rem;
+}
+
+.badge-primary {
+  background-color: $rishvi-success-color;
+}
+
+.badge-danger {
+  background-color: $rishvi-danger-color;
+}
+
+// badge - End
+
+// Text - Start
+.text-primary {
+  color: $rishvi-primary-color !important;
+}
+
+.text-white {
+  color: white !important;
+}
+
+.text-white-hover:hover {
+  color: #7e8299 !important;
+}
+
+// Text - End
+//Icon Size - Start
+.mat-icon-sm {
+  font-size: 16px;
+}
+
+//Icon Size - End
+
+// Dialog - Start
+.show-more-dialog .mat-dialog-container {
+  height: 400px;
+  width: 600px;
+}
+
+// Dialog - End
+
+.forgot-dialog {
+  .mat-dialog-title {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+// Breadcrumb - start
+.breadcrumb-item a {
+  color: $rishvi-primary-color;
+}
+
+// Breadcrumb - end
+
+app-content {
+  max-width: none !important;
+}

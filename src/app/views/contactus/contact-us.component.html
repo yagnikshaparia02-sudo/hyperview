@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="card-title">Contact US</h3>
+  </div>
+  <form
+    autocomplete="off"
+    (ngSubmit)="onSubmitForm(userFrm)"
+    novalidate
+    #userFrm="ngForm"
+    InvalidFormScrollNGFormDirective
+  >
+    <div class="card-body">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <mat-form-field appearance="outline" class="input-box">
+            <mat-label>{{ "Message" }}</mat-label>
+            <textarea
+              matInput
+              [(ngModel)]="message"
+              type="text"
+              name="message1"
+              placeholder="{{ 'Message' }}"
+              required
+              #message1="ngModel"
+              required
+              rows="10"
+            >
+            </textarea>
+            <mat-error *ngIf="message1.errors?.required && submitted">
+              {{ "Please enter message" }}</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <input
+            type="file"
+            class="form-control"
+            #fileInput
+            name="fileInput"
+            placeholder="Upload file"
+            (change)="fileChange($event)"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-primary btn-sm">
+            <i class="fa fa-send"></i>{{ "Send" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<app-loader></app-loader>
