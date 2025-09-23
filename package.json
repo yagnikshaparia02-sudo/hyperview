@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider ng serve",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
@@ -49,7 +49,7 @@
     "moment": "2.18.1",
     "ng-apexcharts": "^1.5.12",
     "ng-inline-svg": "^13.0.0",
-    "ngx-bootstrap": "^3.3.0",
+    "ngx-bootstrap": "^7.0.0",
     "ngx-clipboard": "^14.0.1",
     "ngx-indexed-db": "^11.0.2",
     "ngx-loading": "^1.0.15",
