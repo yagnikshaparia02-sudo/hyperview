@@ -11,7 +11,7 @@ export interface IListing {
   success: boolean;
 }
 
-export interface IPaging {
+interface IPaging {
   lastPage: string | number;
   page: string | number;
   sortColumn: string;

@@ -1,8 +1,8 @@
 import {EventHandlerUtil, DataUtil, getUniqueIdWithPrefix, getCSS} from '../_utils/index'
 
-export interface IImageInputOptions {}
+interface IImageInputOptions {}
 
-export interface IImageInputQueries {
+interface IImageInputQueries {
   componentName: string
   instanseQuery: string
   inputQuery: string
@@ -228,4 +228,4 @@ class ImageInputComponent {
     ImageInputComponent.createInstances(selector)
   }
 }
-export {ImageInputComponent, defaultImageInputOptions, defaultImageInputQueires}
+

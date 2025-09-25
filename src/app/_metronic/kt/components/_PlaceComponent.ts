@@ -7,11 +7,11 @@ import {
   throttle,
 } from '../_utils/index'
 
-export interface IPlaceOptions {
+interface IPlaceOptions {
   mode: string
 }
 
-export interface IPlaceQueries {
+interface IPlaceQueries {
   componentName: string
   instanseQuery: string
   attrQuery: string
@@ -172,4 +172,4 @@ window.addEventListener('resize', function () {
   )
 })
 
-export {PlaceComponent, defaultPlaceOptions, defaultPlaceQueires}
+

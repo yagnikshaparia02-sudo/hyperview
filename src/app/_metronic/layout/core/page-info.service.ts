@@ -8,7 +8,7 @@ export interface PageLink {
   isSeparator?: boolean;
 }
 
-export class PageInfo {
+class PageInfo {
   breadcrumbs: Array<PageLink> = [];
   title: string = '';
 }

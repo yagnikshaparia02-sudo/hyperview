@@ -500,27 +500,27 @@ export {
   getBreakpoint,
   getCSS,
   getCSSVariableValue,
-  getElementActualCss,
-  getElementActualHeight,
-  getElementActualWidth,
+  
+  
+  
   getElementIndex,
-  getElementMatches,
+  
   getElementOffset,
   getElementParents,
   getHighestZindex,
   getScrollTop,
   getViewPort,
   insertAfterElement,
-  isElementHasClasses,
+  
   isVisibleElement,
   throttle,
-  getElementChildren,
+  
   getElementChild,
-  isMobileDevice,
-  slide,
+  
+  
   slideUp,
   slideDown,
   getAttributeValueByBreakpoint,
-  colorLighten,
-  colorDarken,
+  
+  
 };

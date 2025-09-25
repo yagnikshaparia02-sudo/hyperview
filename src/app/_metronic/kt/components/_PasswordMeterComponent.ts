@@ -2,7 +2,7 @@
 /* eslint-disable no-useless-escape */
 import {DataUtil} from '../_utils/index'
 
-export interface IPasswordMeterOptions {
+interface IPasswordMeterOptions {
   minLength: number
   checkUppercase: boolean
   checkLowercase: boolean
@@ -11,7 +11,7 @@ export interface IPasswordMeterOptions {
   scoreHighlightClass: string
 }
 
-export interface IPasswordMeterQueries {
+interface IPasswordMeterQueries {
   componentName: string
   instanseQuery: string
   inputQuery: string
@@ -272,4 +272,4 @@ class PasswordMeterComponent {
     PasswordMeterComponent.createInstances(selector)
   }
 }
-export {PasswordMeterComponent, defaultPasswordMeterOptions, defaultPasswordMeterQueires}
+

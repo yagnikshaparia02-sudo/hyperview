@@ -1,17 +1,17 @@
-export interface ILayoutComponent {
+interface ILayoutComponent {
   componentName: string;
 }
 
-export interface ILoader extends ILayoutComponent {
+interface ILoader extends ILayoutComponent {
   display?: boolean;
   type: 'default' | 'spinner-message' | 'spinner-logo';
 }
 
-export interface IScrollTop extends ILayoutComponent {
+interface IScrollTop extends ILayoutComponent {
   display: boolean;
 }
 
-export interface IHeader extends ILayoutComponent {
+interface IHeader extends ILayoutComponent {
   display: boolean;
   width: 'fixed' | 'fluid';
   left: 'menu' | 'page-title';
@@ -22,11 +22,11 @@ export interface IHeader extends ILayoutComponent {
   menuIcon: 'svg' | 'font';
 }
 
-export interface IMegaMenu extends ILayoutComponent {
+interface IMegaMenu extends ILayoutComponent {
   display: boolean;
 }
 
-export interface IAside extends ILayoutComponent {
+interface IAside extends ILayoutComponent {
   display: boolean; // Display aside
   theme: 'dark' | 'light'; // Set aside theme(dark|light)
   menu: 'main' | 'documentation'; // Set aside menu(main|documentation)
@@ -37,16 +37,16 @@ export interface IAside extends ILayoutComponent {
   menuIcon: 'svg' | 'font'; // Menu icon type(svg|font)
 }
 
-export interface IContent extends ILayoutComponent {
+interface IContent extends ILayoutComponent {
   width: 'fixed' | 'fluid';
   layout: 'default' | 'docs';
 }
 
-export interface IFooter extends ILayoutComponent {
+interface IFooter extends ILayoutComponent {
   width: 'fixed' | 'fluid';
 }
 
-export interface ISidebar extends ILayoutComponent {
+interface ISidebar extends ILayoutComponent {
   display: boolean;
   toggle: boolean;
   shown: boolean;
@@ -56,7 +56,7 @@ export interface ISidebar extends ILayoutComponent {
   displayFooterButton: boolean;
 }
 
-export interface IToolbar extends ILayoutComponent {
+interface IToolbar extends ILayoutComponent {
   display: boolean;
   width: 'fixed' | 'fluid';
   fixed: {
@@ -88,7 +88,7 @@ export interface IToolbar extends ILayoutComponent {
   };
 }
 
-export interface IPageTitle extends ILayoutComponent {
+interface IPageTitle extends ILayoutComponent {
   display: boolean;
   breadCrumbs: boolean;
   description: boolean;
@@ -99,7 +99,7 @@ export interface IPageTitle extends ILayoutComponent {
   responsiveTarget: string;
 }
 
-export interface IMain extends ILayoutComponent {
+interface IMain extends ILayoutComponent {
   body?: {
     backgroundImage?: string;
     class: string;
@@ -123,7 +123,7 @@ export interface ILayout {
   pageTitle?: IPageTitle;
 }
 
-export interface ILayoutCSSClasses {
+interface ILayoutCSSClasses {
   header: Array<string>;
   headerContainer: Array<string>;
   headerMobile: Array<string>;
@@ -140,7 +140,7 @@ export interface ILayoutCSSClasses {
   pageTitle: Array<string>;
 }
 
-export interface ILayoutHTMLAttributes {
+interface ILayoutHTMLAttributes {
   asideMenu: Map<string, string | number | boolean>;
   headerMobile: Map<string, string | number | boolean>;
   headerMenu: Map<string, string | number | boolean>;

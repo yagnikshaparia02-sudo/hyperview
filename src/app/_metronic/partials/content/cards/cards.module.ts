@@ -34,4 +34,4 @@ import { DropdownMenusModule } from '../dropdown-menus/dropdown-menus.module';
     UserListComponent,
   ],
 })
-export class CardsModule {}
+class CardsModule {}

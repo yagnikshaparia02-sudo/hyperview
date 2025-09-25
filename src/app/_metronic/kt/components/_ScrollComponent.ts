@@ -11,7 +11,7 @@ import {
 } from '../_utils/index';
 import { CookieComponent } from './_CookieComponent';
 
-export interface ScrollOptions {
+interface ScrollOptions {
   saveState?: boolean;
 }
 
@@ -311,4 +311,4 @@ class ScrollComponent {
   }
 }
 
-export { ScrollComponent, defaultScrollOptions };
+export { ScrollComponent,  };

@@ -11,7 +11,7 @@ import {
   ElementStyleUtil,
 } from '../_utils/index'
 
-export interface DrawerOptions {
+interface DrawerOptions {
   overlay: boolean
   baseClass: string
   overlayClass: string
@@ -346,4 +346,4 @@ class DrawerComponent {
   }
 }
 
-export {DrawerComponent, defaultDrawerOptions}
+export {DrawerComponent, }

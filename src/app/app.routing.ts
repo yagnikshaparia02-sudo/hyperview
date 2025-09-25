@@ -7,7 +7,7 @@ import { ResetPasswordComponent } from "./views/reset-password/reset-password.co
 import { AuthGuard } from "./_guards/auth.guard";
 import { LayoutComponent } from "./_metronic/layout/layout.component";
 
-export const routes: Routes = [
+const routes: Routes = [
   {
     path: "",
     redirectTo: "dashboard",

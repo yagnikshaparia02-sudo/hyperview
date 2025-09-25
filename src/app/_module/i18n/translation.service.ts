@@ -4,7 +4,7 @@
 import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 
-export interface Locale {
+interface Locale {
   lang: string;
   data: any;
 }

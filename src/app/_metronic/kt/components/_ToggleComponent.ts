@@ -2,7 +2,7 @@ import {DataUtil, getUniqueIdWithPrefix, EventHandlerUtil} from '../_utils/index
 // Helpers
 import {CookieComponent} from './_CookieComponent'
 
-export interface ToggleOptions {
+interface ToggleOptions {
   saveState: boolean
   targetState?: string
   toggleState?: string
@@ -201,4 +201,4 @@ class ToggleComponent {
   }
 }
 
-export {ToggleComponent, defaultToggleOptions}
+export {ToggleComponent, }

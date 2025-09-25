@@ -9,7 +9,7 @@ import {
   ElementAnimateUtil,
 } from '../_utils/index'
 
-export interface IScrollTopOptions {
+interface IScrollTopOptions {
   offset: number
   speed: number
 }
@@ -147,4 +147,4 @@ class ScrollTopComponent {
     ElementAnimateUtil.scrollTop(0, defaultScrollTopOptions.speed)
   }
 }
-export {ScrollTopComponent, defaultScrollTopOptions}
+export {ScrollTopComponent, }

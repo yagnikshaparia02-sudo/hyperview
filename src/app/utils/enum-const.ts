@@ -3,9 +3,7 @@ export enum StatusValue {
   inactive = 'Inactive',
 }
 export enum QueryStatusValue {
-  free = 'Free',
-  paid = 'Paid',
-}
+  }
 export const statusList = {
   [StatusValue.active]: 'STATUS_LIST.ACTIVE',
   [StatusValue.inactive]: 'STATUS_LIST.INACTIVE',
@@ -19,8 +17,8 @@ export const ActionList = [
 ];
 
 export enum ActionListName {
+  action = 'action',
   delete = 'delete',
   activate = 'activate',
-  action = 'action',
   deactivate = 'deactivate',
-}
+  }

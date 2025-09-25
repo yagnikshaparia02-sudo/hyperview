@@ -12,13 +12,13 @@ const LAYOUT_CONFIG_LOCAL_STORAGE_KEY = `${environment.appVersion}-layoutConfig`
 
 export type LayoutType = ILayout | undefined;
 
-export const getEmptyCSSVariables = (): ILayoutCSSVariables => {
+const getEmptyCSSVariables = (): ILayoutCSSVariables => {
   return {
     body: new Map(),
   };
 };
 
-export function getEmptyHTMLAttributes(): {
+function getEmptyHTMLAttributes(): {
   [key: string]: {
     [attrName: string]: string | boolean;
   };
@@ -32,7 +32,7 @@ export function getEmptyHTMLAttributes(): {
   };
 }
 
-export function getEmptyCssClasses(): {
+function getEmptyCssClasses(): {
   [key: string]: string[];
 } {
   return {

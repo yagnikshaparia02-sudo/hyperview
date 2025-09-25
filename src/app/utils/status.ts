@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-export const statusClass = {
+const statusClass = {
   Pending: 'badge-secondary',
   Active: 'badge-success',
   Inactive: 'badge-danger',

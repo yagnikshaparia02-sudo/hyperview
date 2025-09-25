@@ -12,7 +12,7 @@ import {
 
 import {MenuComponent, defaultMenuOptions} from './MenuComponent'
 
-export interface ISearchOptions {
+interface ISearchOptions {
   minLength: number // Miniam text lenght to query search
   keypress: boolean // Enable search on keypress
   enter: boolean // Enable search on enter key press
@@ -21,7 +21,7 @@ export interface ISearchOptions {
   showOnFocus: boolean // Always show menu on input focus
 }
 
-export interface ISearchQueries {
+interface ISearchQueries {
   componentName: string
   instanseQuery: string
   attrQuery: string
@@ -476,4 +476,4 @@ class SearchComponent {
     SearchComponent.createInstances(selector)
   }
 }
-export {SearchComponent, defaultSearchOptions, defaultSearchQueires}
+

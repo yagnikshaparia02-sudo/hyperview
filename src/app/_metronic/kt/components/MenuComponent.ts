@@ -1,7 +1,7 @@
 import {createPopper, VirtualElement} from '@popperjs/core'
 import {DataUtil, DOMEventHandlerUtil, ElementStyleUtil, EventHandlerUtil, getAttributeValueByBreakpoint, getElementChild, getElementParents, getHighestZindex, getUniqueIdWithPrefix, insertAfterElement, slideDown, slideUp, throttle,} from '../_utils/index'
 
-export interface MenuOptions {
+interface MenuOptions {
   dropdown: {
     hoverTimeout: number
     zindex: number

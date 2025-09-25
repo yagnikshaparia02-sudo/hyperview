@@ -59,4 +59,3 @@ const getFileNameFromURL = (url) => {
   }
   return url.replace(/^.*[\\\/]/, '');
 };
-export default DownloadFile;

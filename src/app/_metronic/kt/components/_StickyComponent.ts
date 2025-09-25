@@ -12,7 +12,7 @@ import {
   EventHandlerUtil,
 } from '../_utils/index'
 
-export interface StickyOptions {
+interface StickyOptions {
   offset: number
   reverse: boolean
   animation: boolean
@@ -279,4 +279,4 @@ class StickyComponent {
   }
 }
 
-export {StickyComponent, defaultStickyOptions}
+export {StickyComponent, }

@@ -8,7 +8,7 @@ import {
   ElementStyleUtil,
 } from '../_utils/index'
 
-export interface IStepperOptions {
+interface IStepperOptions {
   startIndex: number
   animation: boolean
   animationSpeed: string
@@ -327,4 +327,4 @@ class StepperComponent {
   }
 }
 
-export {StepperComponent, defaultStepperOptions}
+

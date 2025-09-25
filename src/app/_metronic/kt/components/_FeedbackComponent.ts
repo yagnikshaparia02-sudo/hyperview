@@ -6,7 +6,7 @@ import {
   getAttributeValueByBreakpoint,
 } from '../_utils/index'
 
-export interface FeedbackOptions {
+interface FeedbackOptions {
   width?: number
   placement?: string
   content?: string
@@ -149,4 +149,4 @@ class FeedbackComponent {
   }
 }
 
-export {FeedbackComponent, defaultFeedbackOptions}
+

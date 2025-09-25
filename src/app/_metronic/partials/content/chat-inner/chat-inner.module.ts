@@ -8,4 +8,4 @@ import { ChatInnerComponent } from './chat-inner.component';
   imports: [CommonModule, InlineSVGModule],
   exports: [ChatInnerComponent],
 })
-export class ChatInnerModule {}
+class ChatInnerModule {}

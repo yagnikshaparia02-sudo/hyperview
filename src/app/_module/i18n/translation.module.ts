@@ -6,4 +6,4 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [CommonModule, TranslateModule],
   exports: [TranslateModule],
 })
-export class TranslationModule {}
+class TranslationModule {}

@@ -12,8 +12,8 @@ const offerCodeRegx = /^[a-zA-Z0-9]{6,6}$/;
 const percentRegx = /^(100(\.0{1,2})?|[1-9]?[0-9](\.[0-9]{1,2})?)$/;
 const planNameRegx = /^[A-Za-z\d._+ ]{2,50}$/;
 
-export const emailValidator = Validators.pattern(emailRegx);
-export const passwordValidator = Validators.pattern(PasswordRegx);
+const emailValidator = Validators.pattern(emailRegx);
+const passwordValidator = Validators.pattern(PasswordRegx);
 
 const Validator = {
   emailValidator,
